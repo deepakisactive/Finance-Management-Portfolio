@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explorer PM - Insurance for All</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-gold: #D4AF37;
+            --primary-purple: #6B46C1;
+            --primary-teal: #14B8A6;
+            --light-gold: #F5E6A8;
+            --off-white: #FDFCF8;
+            --light-purple: #E9E2FF;
+            --dark-text: #2D3748;
+            --medium-text: #4A5568;
+            --light-text: #718096;
+            --gradient-bg: linear-gradient(135deg, #FDFCF8 0%, #F5E6A8 50%, #E9E2FF 100%);
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --hover-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--dark-text);
+            background: var(--gradient-bg);
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(253, 252, 248, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Lora', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--primary-purple);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo i {
+            color: var(--primary-gold);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark-text);
+            font-weight: 500;
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-purple);
+        }
+
+        .mobile-menu {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary-purple);
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="%23D4AF37" opacity="0.3"/><circle cx="80" cy="40" r="1.5" fill="%236B46C1" opacity="0.4"/><circle cx="40" cy="80" r="1" fill="%2314B8A6" opacity="0.3"/></svg>');
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            z-index: 2;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-family: 'Lora', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--primary-purple);
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .tagline {
+            font-size: 1.4rem;
+            color: var(--primary-gold);
+            margin-bottom: 2rem;
+            font-weight: 500;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            color: var(--medium-text);
+            margin-bottom: 3rem;
+            line-height: 1.8;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary-purple), var(--primary-teal));
+            color: white;
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 50px;
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--hover-shadow);
+        }
+
+        /* Form Section */
+        .form-section {
+            padding: 6rem 0;
+            background: var(--off-white);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            font-family: 'Lora', serif;
+            font-size: 2.5rem;
+            text-align: center;
+            color: var(--primary-purple);
+            margin-bottom: 3rem;
+        }
+
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-weight: 500;
+            color: var(--dark-text);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group input,
+        .form-group select {
+            padding: 0.75rem;
+            border: 2px solid #E2E8F0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-purple);
+        }
+
+        .upload-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .upload-btn {
+            padding: 0.75rem;
+            background: var(--light-purple);
+            color: var(--primary-purple);
+            border: 2px dashed var(--primary-purple);
+            border-radius: 10px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .upload-btn:hover {
+            background: var(--primary-purple);
+            color: white;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, var(--primary-gold), var(--primary-teal));
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 2rem;
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--hover-shadow);
+        }
+
+        /* Dashboard Section */
+        .dashboard {
+            padding: 6rem 0;
+            background: var(--gradient-bg);
+            display: none;
+        }
+
+        .dashboard.active {
+            display: block;
+        }
+
+        .janam-patri {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 30px;
+            padding: 3rem;
+            box-shadow: var(--card-shadow);
+            position: relative;
+        }
+
+        .janam-patri::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: linear-gradient(45deg, var(--primary-gold), var(--primary-purple), var(--primary-teal));
+            border-radius: 35px;
+            z-index: -1;
+        }
+
+        .patri-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .patri-header h2 {
+            font-family: 'Lora', serif;
+            font-size: 2.5rem;
+            color: var(--primary-purple);
+            margin-bottom: 1rem;
+        }
+
+        .patri-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .patri-card {
+            background: linear-gradient(135deg, var(--off-white), white);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .patri-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .patri-card i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .patri-card h3 {
+            font-family: 'Lora', serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-purple);
+        }
+
+        .risk-low { color: var(--primary-teal); }
+        .risk-medium { color: var(--primary-gold); }
+        .risk-high { color: #EF4444; }
+
+        .chart-container {
+            width: 100%;
+            height: 300px;
+            background: var(--light-purple);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .chart-placeholder {
+            text-align: center;
+            color: var(--primary-purple);
+            font-size: 1.1rem;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 6rem 0;
+            background: var(--off-white);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-card i {
+            font-size: 3rem;
+            color: var(--primary-gold);
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            color: var(--primary-purple);
+            margin-bottom: 1rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--primary-purple);
+            color: white;
+            text-align: center;
+            padding: 3rem 0;
+        }
+
+        .footer p {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .tagline {
+                font-size: 1.1rem;
+            }
+
+            .form-container {
+                padding: 2rem;
+            }
+
+            .janam-patri {
+                padding: 2rem;
+            }
+
+            .patri-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .upload-section {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .form-container {
+                padding: 1.5rem;
+            }
+
+            .janam-patri {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .loading.active {
+            display: block;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid var(--light-purple);
+            border-top: 4px solid var(--primary-purple);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#home" class="logo">
+                <i class="fas fa-shield-alt"></i>
+                Explorer PM
+            </a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#form">Get Started</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <button class="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Explorer PM – Insurance for All</h1>
+            <p class="tagline">Your Digital Janam Patri for Financial Wellness</p>
+            <p class="hero-description">
+                Discover your financial future with our AI-powered personal finance assistant. 
+                Get personalized insurance recommendations and investment insights tailored to your unique financial horoscope.
+            </p>
+            <button class="cta-button" onclick="scrollToSection('form')">
+                Get Started <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+    </section>
+
+    <!-- Form Section -->
+    <section id="form" class="form-section">
+        <div class="container">
+            <h2 class="section-title">Tell Us About Yourself</h2>
+            <div class="form-container">
+                <form id="predict-form">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="age">Age</label>
+                            <input type="number" id="age" name="age" min="18" max="100" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="occupation">Occupation</label>
+                            <select id="occupation" name="occupation" required>
+                                <option value="">Select your occupation</option>
+                                <option value="student">Student</option>
+                                <option value="employed">Employed</option>
+                                <option value="self-employed">Self-Employed</option>
+                                <option value="business">Business Owner</option>
+                                <option value="retired">Retired</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="income">Annual Income (₹)</label>
+                            <input type="number" id="income" name="income" min="0" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="monthly_expenses">Monthly Expenses (₹)</label>
+                            <input type="number" id="monthly_expenses" name="monthly_expenses" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="insurance">Do you have existing insurance?</label>
+                            <select id="insurance" name="insurance" required>
+                                <option value="">Select option</option>
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>
+                                <option value="partial">Partial Coverage</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="assets">Assets (₹)</label>
+                            <input type="number" id="assets" name="assets" min="0" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="investments">Investments (₹)</label>
+                            <input type="number" id="investments" name="investments" min="0" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="savings">Savings (₹)</label>
+                            <input type="number" id="savings" name="savings" min="0" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="debt">Debt (₹)</label>
+                            <input type="number" id="debt" name="debt" min="0" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="emergency_fund">Emergency Fund (₹)</label>
+                            <input type="number" id="emergency_fund" name="emergency_fund" min="0" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="current_insurance_coverage">Current Insurance Coverage (₹)</label>
+                            <input type="number" id="current_insurance_coverage" name="current_insurance_coverage" min="0" required>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">
+                        Analyze My Financial Horoscope
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Loading Section -->
+    <div id="loading" class="loading">
+        <div class="spinner"></div>
+        <p>Analyzing your financial horoscope...</p>
+    </div>
+
+    <!-- Dashboard Section -->
+    <section id="dashboard" class="dashboard">
+        <div class="container">
+            <div class="janam-patri">
+                <div class="patri-header">
+                    <h2>Your Financial Janam Patri</h2>
+                    <p>Personalized insights for <span id="userName"></span></p>
+                </div>
+                
+                <div class="patri-grid">
+                    <div class="patri-card">
+                        <i class="fas fa-chart-line" style="color: var(--primary-teal);"></i>
+                        <h3>Future Expenses</h3>
+                        <p id="futureExpenses">₹12,50,000</p>
+                        <small>Projected for next 5 years</small>
+                    </div>
+                    
+                    <div class="patri-card">
+                        <i class="fas fa-shield-alt" style="color: var(--primary-gold);"></i>
+                        <h3>Insurance Gaps</h3>
+                        <p id="insuranceGaps">₹8,00,000</p>
+                        <small>Uncovered financial risk</small>
+                    </div>
+                    
+                    <div class="patri-card">
+                        <i class="fas fa-thermometer-half" id="riskIcon"></i>
+                        <h3>Risk Level</h3>
+                        <p id="riskLevel" class="risk-medium">Medium</p>
+                        <small>Based on your profile</small>
+                    </div>
+                    
+                    <div class="patri-card">
+                        <i class="fas fa-lightbulb" style="color: var(--primary-purple);"></i>
+                        <h3>AI Recommendations</h3>
+                        <p id="recommendations">5 Products</p>
+                        <small>Curated for you</small>
+                    </div>
+                </div>
+                
+                <div class="chart-container">
+                    <div class="chart-placeholder">
+                        <i class="fas fa-chart-pie" style="font-size: 4rem; color: var(--primary-purple); margin-bottom: 1rem;"></i>
+                        <p>Financial Risk Distribution Chart</p>
+                        <small>Interactive chart will be rendered here</small>
+                    </div>
+                </div>
+                
+                <div class="patri-card">
+                    <h3>Suggested Insurance & Investments</h3>
+                    <div id="suggestions">
+                        <p><strong>Term Life Insurance:</strong> ₹50 Lakh coverage</p>
+                        <p><strong>Health Insurance:</strong> ₹10 Lakh family floater</p>
+                        <p><strong>SIP Investment:</strong> ₹5,000/month in equity funds</p>
+                        <p><strong>Emergency Fund:</strong> ₹2 Lakh liquid fund</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">Why Choose Explorer PM?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-brain"></i>
+                    <h3>Personalized AI Forecasts</h3>
+                    <p>Advanced machine learning algorithms analyze your financial patterns to provide accurate predictions.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <i class="fas fa-user-shield"></i>
+                    <h3>Privacy & Consent-First</h3>
+                    <p>Your data is encrypted and processed with your explicit consent. We never share personal information.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <i class="fas fa-mobile-alt"></i>
+                    <h3>Rural-Friendly Interface</h3>
+                    <p>Designed for easy access across all devices and internet speeds, reaching every corner of India.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <i class="fas fa-palette"></i>
+                    <h3>Culturally Relevant</h3>
+                    <p>Familiar visual metaphors and culturally appropriate financial advice that resonates with Indian values.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="footer">
+        <div class="container">
+            <p>&copy; 2024 Explorer PM - Insurance for All. Empowering financial wellness across India.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            section.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Add event listeners for nav links
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                scrollToSection(targetId);
+            });
+        });
+
+        // Form submission handler
+        document.getElementById('predict-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const userData = Object.fromEntries(formData);
+
+            // Calculate % Expenses and % Savings
+            const monthly_expenses = parseFloat(userData.monthly_expenses) || 0;
+            const income = parseFloat(userData.income) || 1; // Avoid division by zero
+            const percent_expenses = Math.round((monthly_expenses / income) * 100);
+            const percent_savings = 100 - percent_expenses;
+
+            userData.percent_expenses = percent_expenses;
+            userData.percent_savings = percent_savings;
+
+            // Show loading
+            document.getElementById('loading').classList.add('active');
+            document.getElementById('form').style.display = 'none';
+            
+            // Call your Flask API
+fetch('http://127.0.0.1:5000/predict', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(userData)
+})
+.then(response => response.json())
+.then(data => {
+    // Display predicted insurance need and insurance gap from backend
+    generateDashboard(userData, data);
+    document.getElementById('loading').classList.remove('active');
+    document.getElementById('dashboard').classList.add('active');
+    scrollToSection('dashboard');
+})
+.catch(error => {
+    console.error('Error:', error);
+});
+
+        });
+
+        // Generate dashboard with user data
+        function generateDashboard(userData, backendData) {
+            const { name } = userData;
+            
+            // Update user name
+            document.getElementById('userName').textContent = name;
+            
+            // Calculate mock data based on user inputs
+            const annualIncome = parseInt(userData.income);
+            const monthlyExpenses = parseInt(userData.monthly_expenses);
+            const annualExpenses = monthlyExpenses * 12;
+            
+            // Mock calculations
+            const futureExpenses = Math.round(annualExpenses * 5 * 1.1); // 10% inflation
+            
+            // Display insurance gap from backend (predicted - current coverage)
+            if (backendData && backendData.prediction !== undefined && userData.current_insurance_coverage !== undefined) {
+                const predictedInsurance = parseFloat(backendData.prediction) || 0;
+                const currentCoverage = parseFloat(userData.current_insurance_coverage) || 0;
+                const insuranceGap = Math.max(predictedInsurance - currentCoverage, 0);
+                document.getElementById('insuranceGaps').textContent = `₹${insuranceGap.toLocaleString()}`;
+            } else if (backendData && backendData.insurance_gap !== undefined) {
+                document.getElementById('insuranceGaps').textContent = `₹${backendData.insurance_gap.toLocaleString()}`;
+            }
+            
+            // Determine risk level
+            let riskLevel = 'Low';
+            let riskClass = 'risk-low';
+            let riskIcon = 'fas fa-thermometer-quarter';
+            
+            if (annualExpenses > annualIncome * 0.8) {
+                riskLevel = 'High';
+                riskClass = 'risk-high';
+                riskIcon = 'fas fa-thermometer-full';
+            } else if (annualExpenses > annualIncome * 0.6) {
+                riskLevel = 'Medium';
+                riskClass = 'risk-medium';
+                riskIcon = 'fas fa-thermometer-half';
+            }
+            
+            // Update dashboard
+            document.getElementById('futureExpenses').textContent = `₹${futureExpenses.toLocaleString()}`;
+            document.getElementById('riskLevel').textContent = riskLevel;
+            document.getElementById('riskLevel').className = riskClass;
+            document.getElementById('riskIcon').className = riskIcon;
+            
+            // Generate recommendations based on profile
+            const recommendations = generateRecommendations(userData);
+            document.getElementById('suggestions').innerHTML = recommendations;
+        }
+
+        // Generate personalized recommendations
+        function generateRecommendations(userData) {
+            const { age, income, occupation, insurance } = userData;
+            const annualIncome = parseInt(income);
+            
+            let recommendations = '';
+            
+            // Term life insurance
+            const termCoverage = Math.round(annualIncome * 10 / 100000) * 100000;
+            recommendations += `<p><strong>Term Life Insurance:</strong> ₹${(termCoverage / 100000).toFixed(0)} Lakh coverage</p>`;
+            
+            // Health insurance
+            const healthCoverage = age < 30 ? 5 : age < 45 ? 10 : 15;
+            recommendations += `<p><strong>Health Insurance:</strong> ₹${healthCoverage} Lakh family floater</p>`;
+            
+            // SIP based on income
+            const sipAmount = Math.round(annualIncome * 0.1 / 12 / 1000) * 1000;
+            recommendations += `<p><strong>SIP Investment:</strong> ₹${sipAmount.toLocaleString()}/month in equity funds</p>`;
+            
+            // Emergency fund
+            const emergencyFund = Math.round(annualIncome * 0.1 / 100000) * 100000;
+            recommendations += `<p><strong>Emergency Fund:</strong> ₹${(emergencyFund / 100000).toFixed(0)} Lakh liquid fund</p>`;
+            
+            return recommendations;
+        }
+
+        // Upload button handlers
+        document.querySelectorAll('.upload-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                alert('File upload feature will be integrated with backend API');
+            });
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 100) {
+                navbar.style.background = 'rgba(253, 252, 248, 0.98)';
+            } else {
+                navbar.style.background = 'rgba(253, 252, 248, 0.95)';
+            }
+        });
+
+        // Mobile menu toggle (placeholder for future implementation)
+        document.querySelector('.mobile-menu').addEventListener('click', function() {
+            alert('Mobile menu functionality will be implemented');
+        });
+    </script>
+</body>
+</html>
